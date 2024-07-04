@@ -1,6 +1,8 @@
 # Compiled class file
 *.class
-
+/build/
+/target/
+/src/main/resources/application-API-KEY.properties
 # Log file
 *.log
 
