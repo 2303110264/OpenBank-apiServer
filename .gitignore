@@ -2,7 +2,7 @@
 *.class
 /build/
 /target/
-/src/main/resources/application-API-KEY.properties
+/src/main/resources/koyeb.properties
 # Log file
 *.log
 

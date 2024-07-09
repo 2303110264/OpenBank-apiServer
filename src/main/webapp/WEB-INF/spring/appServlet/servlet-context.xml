@@ -41,6 +41,7 @@
 	</beans:bean>
 	
 	<context:component-scan base-package="api.rest.openbank" />
+	<context:component-scan base-package="api.rest.test" />
 	
 	
 </beans:beans>
