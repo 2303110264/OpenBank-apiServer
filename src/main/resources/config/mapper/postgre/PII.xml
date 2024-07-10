@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="postgre.PIIDAO">
+	
+	<update id="createPII">
+		CREATE TABLE PII (
+		    no SERIAL PRIMARY KEY,
+		    name VARCHAR(18) NOT NULL,
+		    phone VARCHAR(11) NOT NULL UNIQUE,
+		    agree CHAR(1) NOT NULL
+		);
+	</update>
+	<!-- 생성 완료
+	 -->
+
+	<insert id="insertPII" parameterType="PIIVO">
+        INSERT INTO PII (name, phone, agree) 
+        VALUES (#{name}, #{phone}, #{agree})
+    </insert>
+    
+    <!-- 현재 생성된 테이블 목록 보기: api.rest.test.PostgreTest에서 실행 가능 -->
+	<select id="test" resultType="hashmap">
+		select *
+		from pg_catalog.pg_tables
+		where tableowner = current_user
+	</select>
+	
+</mapper>
+
+
+
+
+
+

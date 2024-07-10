@@ -1,8 +1,9 @@
-package api.rest.openbank.controller;
+package api.rest.test;
 
 import java.util.List;
 import java.util.Map;
 
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mybatis.spring.SqlSessionTemplate;
@@ -19,23 +20,31 @@ public class PostgreTest {
 	@Autowired
 	private SqlSessionTemplate session;
 	
+//	@Ignore
 	@Test
 	public void 연결테스트(){
 		try {
-		List<Map<String,Object>> a =  session.selectList("postgre.AccountDAO.test");
+		List<Map<String,Object>> a =  session.selectList("postgre.PIIDAO.test");
 		for(Map<String,Object> s:a) {
 			for (Map.Entry<String, Object> e : s.entrySet()) {
                 String key = e.getKey();
                 Object value = e.getValue();
-                System.out.println("Key: " + key + ", Value: " + value);
+                System.out.println(key + " : " + value);
             }
 			System.out.println();
 		}
 		}catch(Exception e) {
-			System.out.println("헐 됐었음");
+			System.out.println("7월 10일까지는 됐었음.");
 			e.printStackTrace();
 		}
 		
+	}
+	
+	@Ignore
+	@Test
+	public void create() {
+		session.update("postgre.PIIDAO.createPII");
+		System.out.println("완료");
 	}
 	
 }
