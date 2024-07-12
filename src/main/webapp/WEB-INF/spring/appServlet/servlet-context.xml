@@ -10,6 +10,8 @@
 		http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd">
 
 	<!-- Enables the Spring MVC @Controller programming model -->
+	<context:component-scan base-package="api.rest.openbank" />
+	<context:component-scan base-package="api.rest.test" />
 	<annotation-driven>
 		<message-converters>
     		<beans:bean class="org.springframework.http.converter.StringHttpMessageConverter">
@@ -40,8 +42,6 @@
 		<beans:property name="suffix" value=".jsp" />
 	</beans:bean>
 	
-	<context:component-scan base-package="api.rest.openbank" />
-	<context:component-scan base-package="api.rest.test" />
 	
 	
 </beans:beans>
