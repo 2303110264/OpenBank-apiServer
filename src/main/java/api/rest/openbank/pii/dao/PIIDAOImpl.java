@@ -14,7 +14,7 @@ public class PIIDAOImpl implements PIIDAO{
 	
 	@Autowired
     public PIIDAOImpl(@Qualifier("localSessionTemplate") SqlSessionTemplate local
-    		, @Qualifier("sqlSessionTemplate") SqlSessionTemplate properties
+//    		, @Qualifier("sqlSessionTemplate") SqlSessionTemplate properties
     		, @Qualifier("koyebSessionTemplate") SqlSessionTemplate systemEnv) {
         System.out.println("Testing...");
 		try {
@@ -28,7 +28,7 @@ public class PIIDAOImpl implements PIIDAO{
 				System.out.println("1 Fail but OK");
 				
 			}catch(Exception e2) {
-				this.session = properties;
+//				this.session = properties;
 				System.out.println("2 Fail maybe OK ... "+this.session.getConnection());;
 			}
 		}
