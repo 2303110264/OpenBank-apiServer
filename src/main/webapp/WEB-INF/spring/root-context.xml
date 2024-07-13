@@ -6,7 +6,8 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task-3.1.xsd
 		http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd">
-	<!-- 개발용 
+
+	<!-- properties -->
 	<context:property-placeholder location="classpath:koyeb.properties" />
 	<bean id="dataSource" class="org.apache.commons.dbcp2.BasicDataSource" 
     	  destroy-method="close">
@@ -15,15 +16,6 @@
 		<property name="username" value="${postgre.username}" />
 		<property name="password" value="${postgre.password}" />    	  
     </bean>	
-	-->
-	<!-- 배포용 -->
-	<bean id="dataSource" class="org.apache.commons.dbcp2.BasicDataSource" destroy-method="close">
-        <property name="driverClassName" value="#{systemEnvironment['POSTGRE_DRIVER']}" />
-        <property name="url" value="#{systemEnvironment['POSTGRE_URL']}" />
-        <property name="username" value="#{systemEnvironment['POSTGRE_USERNAME']}" />
-        <property name="password" value="#{systemEnvironment['POSTGRE_PASSWORD']}" />
-    </bean>
-
     <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
     	<property name="dataSource" ref="dataSource" />
     	<property name="configLocation" value="classpath:config/mybatis/sqlMapConfig.xml" />
@@ -33,5 +25,40 @@
     <bean id="sqlSessionTemplate" class="org.mybatis.spring.SqlSessionTemplate">
     	<constructor-arg ref="sqlSessionFactory" />
     </bean>
+    
+	<!-- 시스템 환경변수 -->
+	<bean id="postgreDataSource" class="org.apache.commons.dbcp2.BasicDataSource" destroy-method="close">
+        <property name="driverClassName" value="#{systemEnvironment['POSTGRE_DRIVER']}" />
+        <property name="url" value="#{systemEnvironment['POSTGRE_URL']}" />
+        <property name="username" value="#{systemEnvironment['POSTGRE_USERNAME']}" />
+        <property name="password" value="#{systemEnvironment['POSTGRE_PASSWORD']}" />
+    </bean>
 
+    <bean id="postgresqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+    	<property name="dataSource" ref="postgreDataSource" />
+    	<property name="configLocation" value="classpath:config/mybatis/sqlMapConfig.xml" />
+    	<property name="mapperLocations" value="classpath:config/mapper/postgre/*.xml" />
+    </bean>
+    
+    <bean id="koyebSessionTemplate" class="org.mybatis.spring.SqlSessionTemplate">
+    	<constructor-arg ref="postgresqlSessionFactory" />
+    </bean>
+
+	<!-- 로컬용 -->
+	<bean id="localDataSource" class="org.apache.commons.dbcp2.BasicDataSource" destroy-method="close">
+        <property name="driverClassName" value="org.postgresql.Driver" />
+        <property name="url" value="jdbc:postgresql://db:5432/obapi" />
+        <property name="username" value="admin" />
+        <property name="password" value="admin" />
+    </bean>
+
+    <bean id="localSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+    	<property name="dataSource" ref="localDataSource" />
+    	<property name="configLocation" value="classpath:config/mybatis/sqlMapConfig.xml" />
+    	<property name="mapperLocations" value="classpath:config/mapper/postgre/*.xml" />
+    </bean>
+    
+    <bean id="localSessionTemplate" class="org.mybatis.spring.SqlSessionTemplate">
+    	<constructor-arg ref="localSessionFactory" />
+    </bean>
 </beans>
