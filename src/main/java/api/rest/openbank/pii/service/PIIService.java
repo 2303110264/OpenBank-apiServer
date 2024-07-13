@@ -1,7 +1,5 @@
 package api.rest.openbank.pii.service;
 
-import java.util.HashMap;
-
 import api.rest.openbank.pii.vo.PIIVO;
 
 public interface PIIService {
