@@ -7,7 +7,8 @@
 		http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd">
 
-	<!-- properties 
+	<!-- properties
+	-->
 	<context:property-placeholder location="classpath:koyeb.properties" />
 	<bean id="dataSource" class="org.apache.commons.dbcp2.BasicDataSource" 
     	  destroy-method="close">
@@ -21,7 +22,6 @@
     	<property name="configLocation" value="classpath:config/mybatis/sqlMapConfig.xml" />
     	<property name="mapperLocations" value="classpath:config/mapper/postgre/*.xml" />
     </bean>
-	-->
     
     <bean id="sqlSessionTemplate" class="org.mybatis.spring.SqlSessionTemplate">
     	<constructor-arg ref="sqlSessionFactory" />
@@ -29,10 +29,10 @@
     
 	<!-- 시스템 환경변수 -->
 	<bean id="postgreDataSource" class="org.apache.commons.dbcp2.BasicDataSource" destroy-method="close">
-        <property name="driverClassName" value="#{systemEnvironment['POSTGRE_DRIVER']}" />
-        <property name="url" value="#{systemEnvironment['POSTGRE_URL']}" />
-        <property name="username" value="#{systemEnvironment['POSTGRE_USERNAME']}" />
-        <property name="password" value="#{systemEnvironment['POSTGRE_PASSWORD']}" />
+		<property name="driverClassName" value="${POSTGRE_DRIVER}" />
+        <property name="url" value="${POSTGRE_URL}" />
+        <property name="username" value="${POSTGRE_USERNAME}" />
+        <property name="password" value="${POSTGRE_PASSWORD}" />
     </bean>
 
     <bean id="postgresqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">

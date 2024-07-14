@@ -19,13 +19,14 @@ public class PIIDAOImpl implements PIIDAO{
         System.out.println("Testing...");
 		try {
 			this.session = local;
-			this.session.getConnection();
-			System.out.println("OK");
+			if(this.session.getConnection()!=null)
+				System.out.println("OK");
+			else System.out.println("not OK...");
 		}catch(Exception e) {
 			try {
 				this.session = systemEnv;
-				this.session.getConnection();
-				System.out.println("1 Fail but OK");
+				if(this.session.getConnection()!=null)
+					System.out.println("1 Fail but OK");
 				
 			}catch(Exception e2) {
 //				this.session = properties;
