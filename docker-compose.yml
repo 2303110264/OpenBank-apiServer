@@ -6,9 +6,9 @@ services:
       context: .
       dockerfile: Dockerfile
     ports:
-      - "8080:8080"
+      - "0.0.0.0:8080:8080"
     environment:
-      SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/obapi
+      SPRING_DATASOURCE_URL: jdbc:postgresql://db:5433/obapi
       SPRING_DATASOURCE_USERNAME: admin
       SPRING_DATASOURCE_PASSWORD: admin
     depends_on:
@@ -26,7 +26,7 @@ services:
     volumes:
       - db-data:/var/lib/postgresql/data
     expose:
-      - 5432
+      - 5433
     networks:
       - spring-net
 

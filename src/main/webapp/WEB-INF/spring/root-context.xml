@@ -49,7 +49,7 @@
 	<!-- 로컬용 -->
 	<bean id="localDataSource" class="org.apache.commons.dbcp2.BasicDataSource" destroy-method="close">
         <property name="driverClassName" value="org.postgresql.Driver" />
-        <property name="url" value="jdbc:postgresql://db:5432/obapi" />
+        <property name="url" value="jdbc:postgresql://db:5433/obapi" />
         <property name="username" value="admin" />
         <property name="password" value="admin" />
     </bean>
